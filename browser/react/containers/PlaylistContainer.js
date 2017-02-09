@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NewPlaylist from '../components/NewPlaylist';
 
 export default class PlaylistContainer extends Component {
 
@@ -7,7 +8,8 @@ export default class PlaylistContainer extends Component {
 
     this.state = {
       playlistNameInput: '',
-      playlistNameSubmit: ''
+      buttonDisabled: true,
+      inputIsInvalid: (props.inputValue.length > 16) || (props.inputValue === '')
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,19 +17,18 @@ export default class PlaylistContainer extends Component {
   }
 
   handleSubmit (event) {
-    // const value = event.target.value;
-    // this.setState({
-    //   playlistNameSubmit: value
-    // });
-    // event.preventDefault();
-    console.log('new playlist name', event.target.value);
+    event.preventDefault();
+    console.log('new playlist name', this.state.playlistNameInput);
+    this.setState({
+      playlistNameInput: ''
+    })
   }
 
-  handleSubmit (event) {
-    // const value = event.target.value;
-    // this.setState({
-    //   playlistNameInput: value
-    // });
+  handleChange (event) {
+    const value = event.target.value;
+    this.setState({
+      playlistNameInput: value
+    });
     console.log('new text in field', value);
   }
 
@@ -37,8 +38,11 @@ export default class PlaylistContainer extends Component {
     return(
       <div>
         <NewPlaylist
+          buttonDisabled={this.state.buttonDisabled}
+          resetValue={playlistNameInput}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
+          inputIsInvalid={this.state.inputIsInvalid}
         />
       </div>
     )}

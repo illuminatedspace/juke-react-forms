@@ -8,7 +8,6 @@ const NewPlaylist = (props) => {
       <form
         className="form-horizontal"
         onSubmit={props.handleSubmit}
-        onChange={props.handleChange}
       >
         <fieldset>
           <legend>New Playlist</legend>
@@ -18,12 +17,18 @@ const NewPlaylist = (props) => {
               <input
                 className="form-control"
                 type="text"
+                onChange={props.handleChange}
+                value={props.resetValue}
               />
             </div>
           </div>
           <div className="form-group">
             <div className="col-xs-10 col-xs-offset-2">
-              <button type="submit" className="btn btn-success">Create Playlist</button>
+              <button type="submit"
+                className="btn btn-success"
+                disabled={props.buttonDisabled}>
+                Create Playlist
+              </button>
             </div>
           </div>
         </fieldset>
